@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>風險訂單追蹤 261022-261028</title>
+<style>
+  body { font-family: "Microsoft JhengHei", "Segoe UI", sans-serif; background:#f4f6f8; margin:0; padding:24px; color:#222; }
+  h1 { text-align:center; margin-bottom:4px; }
+  .subtitle { text-align:center; color:#666; margin-bottom:20px; }
+  .nav { display:flex; justify-content:center; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
+  .nav a { padding:6px 16px; border:2px solid; border-radius:20px; text-decoration:none; color:#333; font-weight:bold; background:#fff; cursor:pointer; transition:background 0.2s,color 0.2s; }
+  .nav a.active { background:#2c3e50; border-color:#2c3e50 !important; color:#fff; }
+  .country-section { display:none; background:#fff; border-radius:10px; padding:20px 24px; margin:0 auto 24px; max-width:1400px; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+  .country-section.active { display:block; }
+  h2 { border-left:6px solid; padding-left:12px; margin-top:0; }
+  .stat-row { display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  .stat-card { background:#f8f9fa; border:1px solid #e0e0e0; border-radius:8px; padding:10px 18px; text-align:center; min-width:100px; }
+  .stat-label { font-size:12px; color:#888; }
+  .stat-value { font-size:20px; font-weight:bold; color:#222; }
+  .table-wrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; white-space:nowrap; }
+  th, td { border:1px solid #ddd; padding:6px 8px; text-align:center; }
+  th:first-child, td:first-child { min-width:130px; }
+  th { background:#2c3e50; color:#fff; position:sticky; top:0; }
+  tbody tr:nth-child(even) { background:#fafafa; }
+  tbody tr:hover { background:#eef6ff; }
+  .empty-note { color:#888; padding:16px; text-align:center; }
+  .no-risk-banner { color:#1e7e34; background:#eafaf0; border:1px solid #b7e4c7; border-radius:8px;
+                      padding:20px; text-align:center; font-size:16px; font-weight:bold; }
+  td.reason-cell { background:#fffef0; transition:background 0.3s; padding:4px 6px; }
+  td.reason-cell.saved-flash { background:#d4f7dc; }
+  input.reason-combo {
+    width:100%; font-size:12.5px; padding:4px; border:1px solid #ccc; border-radius:4px;
+    background:#fff; font-family:inherit; box-sizing:border-box;
+  }
+  input.reason-combo:focus { outline:2px solid #2980b9; }
+  .save-status { position:fixed; bottom:16px; right:16px; background:#27ae60; color:#fff; padding:8px 16px;
+                   border-radius:20px; font-size:13px; opacity:0; transition:opacity 0.4s; pointer-events:none; }
+  .save-status.show { opacity:1; }
+</style>
+</head>
+<body>
+  <h1>風險訂單追蹤</h1>
+  <div class="subtitle">實際出布日區間 2026/10/22 ~ 2026/10/28</div>
+  <datalist id="reasonOptions">
+    <option value="數量少"><option value="驗布風險低"><option value="人力因素">
+  </datalist>
+  <div class="nav"><a href="#CHN" data-target="CHN" class="active" style="border-color:#c0392b">中國(6)</a><a href="#TWN" data-target="TWN" class="" style="border-color:#2980b9">台灣(0)</a><a href="#IND" data-target="IND" class="" style="border-color:#27ae60">印尼(0)</a><a href="#VIN" data-target="VIN" class="" style="border-color:#8e44ad">越南(5)</a><a href="#GUA" data-target="GUA" class="" style="border-color:#f39c12">瓜地馬拉(2)</a></div>
+  
+        <section class="country-section active" id="CHN">
+          <h2 style="border-left-color:#c0392b">中國 CHINA</h2>
+          
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-label">有驗布</div><div class="stat-value">31</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布</div><div class="stat-value">6</div></div>
+      <div class="stat-card"><div class="stat-label">小計</div><div class="stat-value">37</div></div>
+      <div class="stat-card"><div class="stat-label">有驗布比例</div><div class="stat-value">83.8%</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布比例</div><div class="stat-value">16.2%</div></div>
+    </div>
+    
+          
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>排除原因</th><th>驗布風險</th><th>列入風險日</th><th>資料更新日</th><th>風險原因</th><th>Customer</th><th>供應商</th><th>供應地</th><th>布種</th><th>成份</th><th>Style</th><th>Next出布日</th><th>產區</th><th>採購碼數</th><th>未出碼數</th><th>前端已驗碼數</th></tr></thead>
+            <tbody><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::CHN_0_WX7SA124" value="數量少" placeholder="輸入原因"></td><td>22.5</td><td>26/08/29</td><td>26/10/29</td><td>新布種,風險列管</td><td>KOH</td><td>紹興恒元</td><td>CHINA</td><td>Knit,Rib,P/D</td><td>Modal/Recycled Polyester/Spandex 69/24/7%</td><td>WX7SA124</td><td>2026/11/04</td><td>SVN</td><td>1,264</td><td>480</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::CHN_1_BB18212_FA26" value="數量少" placeholder="輸入原因"></td><td>17.6</td><td>26/09/01</td><td>26/10/17</td><td>測試紅色風險,測試高FAIL率,風險列管</td><td>SMA</td><td>FOUNTAIN SET</td><td>CHINA</td><td>Knit,Quilted,P/D</td><td>Cotton/Polyester/Spandex 60/38/2%</td><td>BB18212_FA26</td><td></td><td>NVN</td><td>2,829</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::CHN_2_BB18212_FA26" value="數量少" placeholder="輸入原因"></td><td>17.6</td><td>26/09/01</td><td>26/10/17</td><td>測試紅色風險,測試高FAIL率,風險列管</td><td>SMA</td><td>FOUNTAIN SET</td><td>CHINA</td><td>Knit,Quilted,Top/D</td><td>Cotton/Polyester/Spandex 60/38/2%</td><td>BB18212_FA26</td><td></td><td>NVN</td><td>1,347</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::CHN_3_278270064288270110_0111278270078_0079288270113" value="" placeholder="輸入原因"></td><td>8</td><td>26/09/17</td><td>26/10/29</td><td>新供應商,新布種</td><td>A&amp;F</td><td>KAM HING</td><td>CHINA</td><td>Knit,Interlock,Reactive PRT</td><td>Cotton 100%</td><td>278270064288270110_0111278270078_0079288270113</td><td></td><td>SVN</td><td>8,868</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::CHN_4_278270064288270113" value="數量少" placeholder="輸入原因"></td><td>8</td><td>26/09/16</td><td>26/10/29</td><td>新供應商,新布種</td><td>A&amp;F</td><td>KAM HING</td><td>CHINA</td><td>Knit,Interlock,P/D</td><td>Cotton 100%</td><td>278270064288270113</td><td></td><td>SVN</td><td>998</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::CHN_5_W_PNT_225_FOB" value="數量少" placeholder="輸入原因"></td><td>2</td><td>26/10/14</td><td>26/10/23</td><td>針平配</td><td>QNC</td><td>江蘇漢帛</td><td>CHINA</td><td>Knit,Rib,P/D</td><td>Nylon/Elastane 88/12%</td><td>W_PNT_225_FOB</td><td></td><td>NVN</td><td>2,832</td><td>0</td><td>0</td></tr></tbody>
+          </table>
+        </div>
+        
+        </section>
+        
+        <section class="country-section" id="TWN">
+          <h2 style="border-left-color:#2980b9">台灣 TAIWAN</h2>
+          
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-label">有驗布</div><div class="stat-value">1</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布</div><div class="stat-value">0</div></div>
+      <div class="stat-card"><div class="stat-label">小計</div><div class="stat-value">1</div></div>
+      <div class="stat-card"><div class="stat-label">有驗布比例</div><div class="stat-value">100.0%</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布比例</div><div class="stat-value">0.0%</div></div>
+    </div>
+    
+          <div class="empty-note">本期無「沒驗布」明細資料</div>
+        </section>
+        
+        <section class="country-section" id="IND">
+          <h2 style="border-left-color:#27ae60">印尼 INDONESIA</h2>
+          <div class="no-risk-banner">✅ 本期無風險訂單</div>
+          
+        </section>
+        
+        <section class="country-section" id="VIN">
+          <h2 style="border-left-color:#8e44ad">越南 VIETNAM</h2>
+          
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-label">有驗布</div><div class="stat-value">12</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布</div><div class="stat-value">5</div></div>
+      <div class="stat-card"><div class="stat-label">小計</div><div class="stat-value">17</div></div>
+      <div class="stat-card"><div class="stat-label">有驗布比例</div><div class="stat-value">70.6%</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布比例</div><div class="stat-value">29.4%</div></div>
+    </div>
+    
+          
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>排除原因</th><th>驗布風險</th><th>列入風險日</th><th>資料更新日</th><th>風險原因</th><th>Customer</th><th>供應商</th><th>供應地</th><th>布種</th><th>成份</th><th>Style</th><th>Next出布日</th><th>產區</th><th>採購碼數</th><th>未出碼數</th><th>前端已驗碼數</th></tr></thead>
+            <tbody><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::VIN_0_6015108_SS27" value="數量少" placeholder="輸入原因"></td><td>10</td><td>26/09/07</td><td>26/10/27</td><td>新供應商,新布種,針平配</td><td>UAM</td><td>儒鴻ECLAT</td><td>VIETNAM</td><td>Knit,Jersey,P/D</td><td>Polyester/Elastane 84/16%</td><td>6015108_SS27</td><td></td><td>SMG</td><td>376</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::VIN_1_6ZE54X_C227Z2850Y_C227" value="驗布風險低" placeholder="輸入原因"></td><td>4</td><td>26/09/12</td><td>26/10/27</td><td>針平配</td><td>TGT</td><td>PACIFIC</td><td>VIETNAM</td><td>Knit,Jersey,Single dyed</td><td>Recycled Polyester/Spandex 86/14%</td><td>6ZE54X_C227Z2850Y_C227</td><td></td><td>SMG</td><td>16,440</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::VIN_2_YP8EPM_C127" value="驗布風險低" placeholder="輸入原因"></td><td>4</td><td>26/08/20</td><td>26/10/28</td><td>針平配</td><td>TGT</td><td>得力實業</td><td>VIETNAM</td><td>Woven,Twill,P/D</td><td>Recycled Polyester 100%</td><td>YP8EPM_C127</td><td>2026/11/01</td><td>NVN</td><td>45,005</td><td>13,233</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::VIN_3_60127N012A" value="驗布風險低" placeholder="輸入原因"></td><td>3.2</td><td>26/10/04</td><td>26/10/29</td><td>新布種</td><td>G.U</td><td>PANGRIM</td><td>VIETNAM</td><td>Woven,Rip Stop,P/D</td><td>Cotton/Nylon/Spandex 63/32/5%</td><td>60127N012A</td><td>2026/10/30</td><td>NVN</td><td>94,931</td><td>1</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::VIN_4_6014192_SS276014193_SS27" value="驗布風險低" placeholder="輸入原因"></td><td>3.2</td><td>26/07/14</td><td>26/10/27</td><td>針平配</td><td>UAM</td><td>FORMOSA</td><td>VIETNAM</td><td>Woven,Plain Weave,P/D</td><td>Polyester 100%</td><td>6014192_SS276014193_SS27</td><td>2026/11/06</td><td>SMG</td><td>34,996</td><td>3,089</td><td>0</td></tr></tbody>
+          </table>
+        </div>
+        
+        </section>
+        
+        <section class="country-section" id="GUA">
+          <h2 style="border-left-color:#f39c12">瓜地馬拉 GUATEMALA</h2>
+          
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-label">有驗布</div><div class="stat-value">0</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布</div><div class="stat-value">2</div></div>
+      <div class="stat-card"><div class="stat-label">小計</div><div class="stat-value">2</div></div>
+      <div class="stat-card"><div class="stat-label">有驗布比例</div><div class="stat-value">0.0%</div></div>
+      <div class="stat-card"><div class="stat-label">沒驗布比例</div><div class="stat-value">100.0%</div></div>
+    </div>
+    
+          
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>排除原因</th><th>驗布風險</th><th>列入風險日</th><th>資料更新日</th><th>風險原因</th><th>Customer</th><th>供應商</th><th>供應地</th><th>布種</th><th>成份</th><th>Style</th><th>Next出布日</th><th>產區</th><th>採購碼數</th><th>未出碼數</th><th>前端已驗碼數</th></tr></thead>
+            <tbody><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::GUA_0_1196260_SP27_SV" value="驗布風險低" placeholder="輸入原因"></td><td>2</td><td>26/10/28</td><td>26/10/28</td><td>針平配</td><td>ONY</td><td>INNOV</td><td>GUATEMALA</td><td>Knit,French Terry,P/D,1x1</td><td>Cotton/Recycled Polyester 90/10%</td><td>1196260_SP27_SV</td><td></td><td>SLV</td><td>21,218</td><td>0</td><td>0</td></tr><tr><td class="reason-cell"><input type="text" class="reason-combo" list="reasonOptions" data-key="reason::GUA_1_1196260_SP27_SV" value="驗布風險低" placeholder="輸入原因"></td><td>2</td><td>26/10/28</td><td>26/10/28</td><td>針平配</td><td>ONY</td><td>INNOV</td><td>GUATEMALA</td><td>Knit,Rib,P/D,1x1</td><td>Cotton/Polyester 95/5%</td><td>1196260_SP27_SV</td><td></td><td>SLV</td><td>3,716</td><td>0</td><td>0</td></tr></tbody>
+          </table>
+        </div>
+        
+        </section>
+        
+  <div class="save-status" id="saveStatus">已儲存</div>
+
+<script>
+(function() {
+  var navLinks = document.querySelectorAll(".nav a");
+  var sections = document.querySelectorAll(".country-section");
+
+  function showTab(key) {
+    sections.forEach(function(s) { s.classList.toggle("active", s.id === key); });
+    navLinks.forEach(function(a) { a.classList.toggle("active", a.getAttribute("data-target") === key); });
+  }
+
+  navLinks.forEach(function(a) {
+    a.addEventListener("click", function(e) {
+      e.preventDefault();
+      var key = a.getAttribute("data-target");
+      showTab(key);
+      history.replaceState(null, "", "#" + key);
+    });
+  });
+
+  var initial = (location.hash || "").slice(1);
+  if (!initial || !document.getElementById(initial)) {
+    initial = sections.length ? sections[0].id : null;
+  }
+  if (initial) showTab(initial);
+})();
+
+(function() {
+  var STORAGE_KEY = "riskFabricEdits_261022-261028";
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { store = {}; }
+
+  // <input list>+<datalist> 的建議清單會依「目前欄位文字」過濾，欄位已有值時多半只剩1項符合。
+  // 解法：一進焦點就把欄位清空，讓datalist顯示完整3個選項；離開焦點時若使用者沒選也沒打字
+  // (欄位仍是空的)，還原成原本的值；有輸入才存檔，避免motionless點一下就被清空又存成空白。
+  document.querySelectorAll(".reason-combo").forEach(function(inp) {
+    var cell = inp.closest("td");
+    var key = inp.getAttribute("data-key");
+
+    if (Object.prototype.hasOwnProperty.call(store, key)) {
+      inp.value = store[key];
+    }
+
+    inp.addEventListener("focus", function() {
+      inp.dataset.prev = inp.value;
+      inp.value = "";
+    });
+
+    inp.addEventListener("blur", function() {
+      var val = inp.value.trim();
+      if (val === "") {
+        inp.value = inp.dataset.prev || "";
+        return;
+      }
+      if (val === inp.dataset.prev) { return; }
+      store[key] = val;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+      cell.classList.add("saved-flash");
+      setTimeout(function() { cell.classList.remove("saved-flash"); }, 600);
+      var status = document.getElementById("saveStatus");
+      status.classList.add("show");
+      setTimeout(function() { status.classList.remove("show"); }, 1200);
+    });
+  });
+})();
+</script>
+</body>
+</html>
