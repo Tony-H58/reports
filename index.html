@@ -3,15 +3,116 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tony 日報</title>
+<title>Tony 報表</title>
 <style>
-  body { font-family: -apple-system, "Microsoft JhengHei", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #222; }
-  h1 { font-size: 22px; }
-  p { color: #666; }
+  :root { --acc: #2b6cb0; --bg: #f6f7f9; --card: #fff; --line: #e3e6ea; --mut: #6b7280; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Microsoft JhengHei", "PingFang TC", sans-serif; background: var(--bg); color: #1f2937; }
+  header { background: #1f3b5c; color: #fff; padding: 22px 18px 0; }
+  header h1 { margin: 0 0 4px; font-size: 22px; }
+  header p { margin: 0 0 14px; font-size: 13px; opacity: .75; }
+  nav { display: flex; gap: 4px; max-width: 760px; margin: 0 auto; }
+  header .wrap { max-width: 760px; margin: 0 auto; }
+  nav button { flex: 1; border: 0; padding: 12px 0; font-size: 16px; font-weight: 600; border-radius: 10px 10px 0 0;
+    background: rgba(255,255,255,.12); color: #dbe6f3; cursor: pointer; }
+  nav button.on { background: var(--bg); color: #1f3b5c; }
+  nav button i { font-style: normal; font-size: 12px; font-weight: 500; opacity: .7; margin-left: 4px; }
+  main { max-width: 760px; margin: 0 auto; padding: 16px; }
+  .grp { margin-bottom: 18px; }
+  .grp h2 { font-size: 14px; color: var(--mut); margin: 0 0 8px 2px; font-weight: 600; }
+  .list { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .list a { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; min-height: 48px;
+    text-decoration: none; color: inherit; border-top: 1px solid var(--line); }
+  .list a:first-child { border-top: 0; }
+  .list a:hover { background: #eef4fb; }
+  .list a span { font-size: 16px; }
+  .list a small { color: var(--mut); font-size: 13px; margin: 0 12px 0 auto; }
+  .list a b { color: var(--acc); font-size: 18px; }
+  .empty, .err { text-align: center; color: var(--mut); padding: 40px 10px; }
+  .new { font-style: normal; background: #e53e3e; color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 6px; margin-left: 6px; }
 </style>
 </head>
 <body>
-<h1>📊 Tony 日報</h1>
-<p>日報上傳後會依日期列在這裡。</p>
+<header>
+  <div class="wrap">
+    <h1>📊 Tony 報表</h1>
+    <p id="upd">載入中…</p>
+  </div>
+  <nav>
+    <button data-k="daily" class="on">日報<i id="c-daily"></i></button>
+    <button data-k="weekly">週報<i id="c-weekly"></i></button>
+    <button data-k="monthly">月報<i id="c-monthly"></i></button>
+  </nav>
+</header>
+<main id="main"><div class="empty">載入中…</div></main>
+<script>
+/* 報表放法：daily/2026-11-05.html、weekly/2026-W45.html、monthly/2026-11.html
+   首頁會自動讀取三個資料夾，不用手動改這個檔案。 */
+const REPO = 'Tony-H58/reports';
+const KINDS = { daily: '日報', weekly: '週報', monthly: '月報' };
+const WD = '日一二三四五六';
+const data = {};
+let cur = 'daily';
+try { const k = localStorage.getItem('rptTab'); if (KINDS[k]) cur = k; } catch (e) {}
+
+async function load(kind) {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${kind}`, { cache: 'no-store' });
+    if (r.status === 404) return [];
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    return j.filter(f => f.type === 'file' && /\.(html?|pdf|xlsx?)$/i.test(f.name))
+            .map(f => ({ name: f.name.replace(/\.[^.]+$/, ''), file: f.name, path: `${kind}/${encodeURIComponent(f.name)}` }))
+            .sort((a, b) => b.name.localeCompare(a.name));
+  } catch (e) { return null; }
+}
+
+function label(kind, n) {
+  let m;
+  if (kind === 'daily' && (m = n.match(/^(\d{4})-(\d{2})-(\d{2})/))) {
+    const d = new Date(+m[1], m[2] - 1, +m[3]);
+    return [`${+m[2]}月${+m[3]}日`, `星期${WD[d.getDay()]}`];
+  }
+  if (kind === 'weekly' && (m = n.match(/^(\d{4})-W(\d{1,2})/i))) return [`第 ${+m[2]} 週`, m[1]];
+  if (kind === 'monthly' && (m = n.match(/^(\d{4})-(\d{2})/))) return [`${+m[2]} 月`, m[1]];
+  return [n, ''];
+}
+function group(kind, n) {
+  const m = n.match(/^(\d{4})-(\d{2})/);
+  if (!m) return '其他';
+  return kind === 'daily' ? `${m[1]} 年 ${+m[2]} 月` : `${m[1]} 年`;
+}
+
+function render() {
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.k === cur));
+  const main = document.getElementById('main'), list = data[cur];
+  if (list === undefined) { main.innerHTML = '<div class="empty">載入中…</div>'; return; }
+  if (list === null) { main.innerHTML = '<div class="err">讀取失敗，請稍後重新整理</div>'; return; }
+  if (!list.length) { main.innerHTML = `<div class="empty">還沒有${KINDS[cur]}</div>`; return; }
+  const groups = {};
+  for (const f of list) (groups[group(cur, f.name)] ??= []).push(f);
+  main.innerHTML = Object.entries(groups).map(([g, fs]) =>
+    `<div class="grp"><h2>${g}</h2><div class="list">` +
+    fs.map((f, i) => { const [a, b] = label(cur, f.name);
+      return `<a href="${f.path}"><span>${a}${i === 0 && g === group(cur, list[0].name) ? '<em class="new">最新</em>' : ''}</span><small>${b}</small><b>›</b></a>`; }).join('') +
+    `</div></div>`).join('');
+}
+
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  cur = b.dataset.k; try { localStorage.setItem('rptTab', cur); } catch (e) {} render();
+});
+
+(async () => {
+  render();
+  await Promise.all(Object.keys(KINDS).map(async k => {
+    data[k] = await load(k);
+    document.getElementById('c-' + k).textContent = data[k] ? data[k].length : '';
+    if (k === cur) render();
+  }));
+  const d = data.daily && data.daily[0];
+  document.getElementById('upd').textContent = d ? `最新日報：${label('daily', d.name)[0]}` : '日報・週報・月報';
+  render();
+})();
+</script>
 </body>
 </html>
