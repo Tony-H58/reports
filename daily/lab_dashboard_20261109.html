@@ -424,10 +424,10 @@
             const html = cards.length === 0
                 ? '<div class="empty-state">📭 無數據</div>'
                 : cards.map(c => `
-                    <div class="qc-card" style="border-left:0;border-top:4px solid ${c.fail > 0 ? '#dc2626' : '#86efac'};">
+                    <div class="qc-card" style="border-left:0;border-top:4px solid ${c.fail > 0 ? '#b91c1c' : '#86efac'};">
                         <div class="card-header">
                             <div class="card-title">${esc(c.supp)}</div>
-                            <div style="font-size: 12px; margin-top: 4px; ${c.fail > 0 ? 'color: #dc2626; font-weight: bold;' : 'color: #333;'}">
+                            <div style="font-size: 12px; margin-top: 4px; ${c.fail > 0 ? 'color: #b91c1c; font-weight: bold;' : 'color: #333;'}">
                                 <span>Pass(${c.pass})</span>
                                 <span style="margin: 0 6px;"></span>
                                 <span>Fail(${c.fail})</span>
@@ -449,8 +449,8 @@
                         </div>
                         <div class="card-details">
                             ${c.customers.map(cu => `
-                                <div class="card-details-row" style="color: ${cu.fail > 0 ? '#dc2626' : '#16a34a'}; ${cu.fail > 0 ? 'font-weight: bold;' : ''}">
-                                    <span class="detail-link" onclick="showDetails('${esc(cu.c).replace(/'/g, "\\'")}', '${esc(c.supp).replace(/'/g, "\\'")}')">${cu.fail > 0 ? '*' : ''}${esc(cu.c)}<span style="${cu.fail > 0 ? 'color:#dc2626;' : ''}">（${cu.fail} / ${cu.total}，${cu.total > 0 ? (cu.fail/cu.total*100).toFixed(1) : '0.0'}%）</span></span>
+                                <div class="card-details-row" style="color: ${cu.fail > 0 ? '#b91c1c' : '#22c55e'}; ${cu.fail > 0 ? 'font-weight: bold;' : ''}">
+                                    <span class="detail-link" onclick="showDetails('${esc(cu.c).replace(/'/g, "\\'")}', '${esc(c.supp).replace(/'/g, "\\'")}')">${cu.fail > 0 ? '*' : ''}${esc(cu.c)}<span style="${cu.fail > 0 ? 'color:#b91c1c;' : ''}">（${cu.fail} / ${cu.total}，${cu.total > 0 ? (cu.fail/cu.total*100).toFixed(1) : '0.0'}%）</span></span>
                                 </div>`).join('')}
                         </div>
                     </div>`).join('');
@@ -521,14 +521,14 @@
                 return `<tr>
                     <td>${esc(r.d)}</td>
                     <td>${esc(r.c)}</td>
-                    <td style="${pass ? '' : 'color:#dc2626;font-weight:600;'}">${esc(r.o)}</td>
+                    <td style="${pass ? '' : 'color:#b91c1c;font-weight:600;'}">${esc(r.o)}</td>
                     <td>${esc(r.s)}</td>
                     <td>${esc(r.l)}</td>
                     <td>${esc(r.ea || '-')}</td>
                     <td>${[...g.pos].map(esc).join('<br>')}</td>
                     <td>${esc(r.fc)}</td>
                     <td><span class="detail-link" onclick="showColorDetail(${i})">${esc(r.col)}</span></td>
-                    <td style="color: ${pass ? '#333' : '#dc2626'}; font-weight: 600;">${pass ? 'Pass' : 'Fail'}（${j.fail} roll Fail，${j.pass} roll Pass，${j.pct}%）</td>
+                    <td style="color: ${pass ? '#333' : '#b91c1c'}; font-weight: 600;">${pass ? 'Pass' : 'Fail'}（${j.fail} roll Fail，${j.pass} roll Pass，${j.pct}%）</td>
                 </tr>`;
             }).join('');
             document.getElementById('detailsModal').classList.add('show');
@@ -556,19 +556,19 @@
             });
             const lotNames = Object.keys(lots).sort((a, b) => (lots[b].f / (lots[b].p + lots[b].f)) - (lots[a].f / (lots[a].p + lots[a].f)) || lots[b].f - lots[a].f || a.localeCompare(b, undefined, { numeric: true }));
             const maxL = Math.max(1, ...lotNames.map(n => lots[n].p + lots[n].f));
-            const bwL = 90, rhL = 30, topL = 30;
+            const bwL = 200, rhL = 42, topL = 30;
             const lgL = Math.max(...lotNames.map(n => n.length)) * 7.2 + 10;
             const W1 = lgL + bwL + 150, H1 = topL + lotNames.length * rhL + 4;
             const bars1 = lotNames.map((n, i) => {
                 const it = lots[n], y = topL + i * rhL, tot = it.p + it.f;
                 const wp = it.p / maxL * bwL, wf = it.f / maxL * bwL;
                 const pct = (it.f / tot * 100).toFixed(1);
-                return `<text x="0" y="${y + 15}" font-size="12" fill="#2c3e50">${esc(n)}</text>`
-                    + `<rect x="${lgL}" y="${y}" width="${wp}" height="20" fill="#16a34a"/>`
-                    + `<rect x="${lgL + wp}" y="${y}" width="${wf}" height="20" fill="#dc2626"/>`
-                    + `<text x="${lgL + wp + wf + 8}" y="${y + 15}" font-size="12" ${it.f ? 'font-weight="700" fill="#dc2626"' : 'fill="#667"'}>Fail ${pct}%（F ${it.f}，P ${it.p}）</text>`;
+                return `<text x="0" y="${y + 20}" font-size="12" fill="#2c3e50">${esc(n)}</text>`
+                    + `<rect x="${lgL}" y="${y}" width="${wp}" height="28" fill="#22c55e"/>`
+                    + `<rect x="${lgL + wp}" y="${y}" width="${wf}" height="28" fill="#b91c1c"/>`
+                    + `<text x="${lgL + wp + wf + 8}" y="${y + 20}" font-size="12"${it.f ? 'font-weight="700" fill="#b91c1c"' : 'fill="#667"'}>Fail ${pct}%（F ${it.f}，P ${it.p}）</text>`;
             }).join('');
-            const svg1 = `<svg width="${W1}" height="${H1}" viewBox="0 0 ${W1} ${H1}"><rect x="0" y="4" width="12" height="12" fill="#16a34a"/><text x="18" y="15" font-size="12" fill="#2c3e50">Pass 匹數</text><rect x="96" y="4" width="12" height="12" fill="#dc2626"/><text x="114" y="15" font-size="12" fill="#2c3e50">Fail 匹數</text>${bars1}</svg>`;
+            const svg1 = `<svg width="${W1}" height="${H1}" viewBox="0 0 ${W1} ${H1}"><rect x="0" y="4" width="12" height="12" fill="#22c55e"/><text x="18" y="15" font-size="12" fill="#2c3e50">Pass 匹數</text><rect x="96" y="4" width="12" height="12" fill="#b91c1c"/><text x="114" y="15" font-size="12" fill="#2c3e50">Fail 匹數</text>${bars1}</svg>`;
 
             // 整體：Pass 在左圓、Fail 在右圓；每個點代表一個測試項目（不分缸、不分匹），點平均分布在圓內
             const nP = rows.filter(r => r.p).length, nF = rows.length - nP;
@@ -589,11 +589,11 @@
             const cxP = R + 0.5, cxF = circD + gapB + R + 0.5;
             const W3 = circD * 2 + gapB + 1, H3 = hdr + circD + 4;
             const svg3 = `<svg width="${W3}" height="${H3}" viewBox="0 0 ${W3} ${H3}">`
-                + `<text x="0" y="16" font-size="12" font-weight="700" fill="#16a34a">Pass（${nP}）</text>`
-                + `<text x="${circD + gapB}" y="16" font-size="12" font-weight="700" fill="#dc2626">Fail（${nF}）</text>`
+                + `<text x="0" y="16" font-size="12" font-weight="700" fill="#22c55e">Pass（${nP}）</text>`
+                + `<text x="${circD + gapB}" y="16" font-size="12" font-weight="700" fill="#b91c1c">Fail（${nF}）</text>`
                 + `<circle cx="${cxP}" cy="${hdr + R}" r="${R}" fill="#fff" stroke="#bfe3cb" stroke-width="1.5"/>`
                 + `<circle cx="${cxF}" cy="${hdr + R}" r="${R}" fill="#fff" stroke="#f0c0c0" stroke-width="1.5"/>`
-                + dotsOf(nP, cxP, '#16a34a') + dotsOf(nF, cxF, '#dc2626') + `</svg>`;
+                + dotsOf(nP, cxP, '#22c55e') + dotsOf(nF, cxF, '#b91c1c') + `</svg>`;
 
             const items = {};
             rows.forEach(r => {
@@ -603,17 +603,17 @@
             });
             const names = Object.keys(items).sort((a, b) => (items[b].f / (items[b].p + items[b].f)) - (items[a].f / (items[a].p + items[a].f)) || items[b].f - items[a].f || a.localeCompare(b));
             const maxT = Math.max(1, ...names.map(n => items[n].p + items[n].f));
-            const bw = 140, rh2 = 30;
+            const bw = 240, rh2 = 42;
             const lg = Math.max(...names.map(n => n.length)) * 7.2 + 10;
             const W2 = lg + bw + 95, H2 = names.length * rh2 + 8;
             const bars2 = names.map((n, i) => {
                 const it = items[n], y = 6 + i * rh2, tot = it.p + it.f;
                 const wp = it.p / maxT * bw, wf = it.f / maxT * bw;
                 const pct = (it.f / tot * 100).toFixed(1);
-                return `<text x="0" y="${y + 15}" font-size="12" fill="#2c3e50">${esc(n)}</text>`
-                    + `<rect x="${lg}" y="${y}" width="${wp}" height="20" fill="#16a34a"/>`
-                    + `<rect x="${lg + wp}" y="${y}" width="${wf}" height="20" fill="#dc2626"/>`
-                    + `<text x="${lg + wp + wf + 8}" y="${y + 15}" font-size="12" ${it.f ? 'font-weight="700" fill="#dc2626"' : 'fill="#667"'}>Fail ${pct}%</text>`;
+                return `<text x="0" y="${y + 20}" font-size="12" fill="#2c3e50">${esc(n)}</text>`
+                    + `<rect x="${lg}" y="${y}" width="${wp}" height="28" fill="#22c55e"/>`
+                    + `<rect x="${lg + wp}" y="${y}" width="${wf}" height="28" fill="#b91c1c"/>`
+                    + `<text x="${lg + wp + wf + 8}" y="${y + 20}" font-size="12"${it.f ? 'font-weight="700" fill="#b91c1c"' : 'fill="#667"'}>Fail ${pct}%</text>`;
             }).join('');
             const svg2 = `<svg width="${W2}" height="${H2}" viewBox="0 0 ${W2} ${H2}">${bars2}</svg>`;
             return `<div class="dchart"><h4>(1) 各缸 Pass / Fail 與 Fail%</h4><div>${svg1}</div></div>`
@@ -663,13 +663,13 @@
                     return `<td>${Object.keys(g.items).sort().map(tt => {
                         const r = g.items[tt];
                         const std = r.mn || r.mx ? `${r.mn || '-'} ~ ${r.mx || '-'}` : '-';
-                        return `<div>${esc(tt.slice(g.base.length).replace('Length', 'Len').replace('Width', 'Wid'))}<span style="color:${r.p ? '#16a34a' : '#dc2626'};font-weight:600;margin-left:8px;">${r.p ? 'P' : 'F'}</span><span style="margin-left:8px;${r.p ? '' : 'color:#dc2626;'}">${esc(r.v)}</span><span style="margin-left:8px;">(${esc(std)})</span></div>`;
+                        return `<div>${esc(tt.slice(g.base.length).replace('Length', 'Len').replace('Width', 'Wid'))}<span style="color:${r.p ? '#22c55e' : '#b91c1c'};font-weight:600;margin-left:8px;">${r.p ? 'P' : 'F'}</span><span style="margin-left:8px;${r.p ? '' : 'color:#b91c1c;'}">${esc(r.v)}</span><span style="margin-left:8px;">(${esc(std)})</span></div>`;
                     }).join('')}</td>`;
                 }).join('');
                 return `<tr>
                     <td>${roll.lot === '成衣修色' ? '-' : esc(roll.lot)}</td>
                     <td>${roll.rl === '成衣修色' ? '-' : esc(roll.rl)}</td>
-                    <td style="color:${failed ? '#dc2626' : '#16a34a'};font-weight:600;">${failed ? 'Fail' : 'Pass'}</td>
+                    <td style="color:${failed ? '#b91c1c' : '#22c55e'};font-weight:600;">${failed ? 'Fail' : 'Pass'}</td>
                     ${cells}
                 </tr>`;
             }).join('');
