@@ -15,7 +15,7 @@
         const DEFECT_NAMES = ["中央羅拉痕","修布痕","克重超重","克重過輕","全匹性瑕疵","包裝不良","匹差過大","匹重不足","印花瑕疵","印花瑕疵(印白)","印花瑕疵(塞網)","印花瑕疵(脫版)","左中右條距差","布邊不良","布面不平整","布頭/尾瑕疵","幅寬不足","手感不符","捲邊","接疋","擦傷/刮傷/勾紗","斷紗(斷經/斷緯)","染折/折痕","染色不均","格/條距不符","棉粒/結頭/粗節","棉粒/結頭/粗節紗","橫檔/橫條","水波紋","油/髒/色污","波浪/荷葉邊","漸進色差","異纖/飛花","破洞","破洞修補痕","粗細紗","經向歪斜","緯斜/緯弧過大","織布瑕疵(漏針)","缸差過大","背面瑕疵","邊中色差","針痕/直條","顏色不符","風格不符","鬆/緊邊"];
         const DEFECT_DAYS = 60;
         const AUTO_PERIOD = "261111-261116";
-        const AUTO_GENERATED = "2026/11/17 10:28";
+        const AUTO_GENERATED = "2026/11/17 14:17";
         // === END AUTO-INJECTED DATA ===
 
         const _d = new Date();
@@ -1063,7 +1063,7 @@ const COLUMNS = {
             }
             const col = String(row['顏色'] || '').trim();
             const po = String(row['採購單號'] || '').trim(), st = String(row['款號'] || '').trim();
-            const hit = FRONT_IDX.po[po + '|' + col] || FRONT_IDX.st[st + '|' + col];
+            const hit = FRONT_IDX.po[po + '|' + col];
             if (!hit) return '<span style="color:#94a3b8">-</span>';
             const g = (hit.r['單色結論'] || '').trim() || '-';
             const color = g === 'Fail' ? '#dc2626' : (g === 'Discuss' ? '#d97706' : '#16a34a');
